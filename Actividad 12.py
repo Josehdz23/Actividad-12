@@ -62,6 +62,26 @@ def mostrarRepartidores():
         ordenadoD = dict(ordenado)
         for clave2, datos2 in ordenadoD.items():
             print(f"Nombre: {clave2} Paquetes Entregados: {datos2['repartidos']} Zona: {datos2['zona']}\n")
+    else:
+        print("No hay repartidores registrados")
+
+def busqueda_secuencial(lista, busqueda):
+    for j in range(len(lista)):
+        if lista[j] == busqueda:
+            return j
+    return -1
+
+def buscarRepartidor():
+    if repartidores:
+        buscar = input("Ingrese el nombre de un repartidor: ")
+        b = busqueda_secuencial(list(repartidores.keys()), buscar)
+        if b != -1:
+            print(f"{buscar} entregó {repartidores[buscar]['repartidos']} paquetes")
+        else:
+            print("No existe")
+    else:
+        print("No hay repartidores registrados")
+
 def main():
     while True:
         try:
@@ -73,7 +93,7 @@ def main():
                 case 2:
                     mostrarRepartidores()
                 case 3:
-                    print("3")
+                    buscarRepartidor()
                 case 4:
                     print("4")
                 case 5:
