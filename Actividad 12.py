@@ -41,6 +41,27 @@ def ingreso():
         except Exception as ex:
             print(f"Ha ocurrido un error: {ex}")
 
+def quick_sort(lista):
+    if len(lista) <= 1:
+        return lista
+
+    pivote = lista[0]
+    menores = [x for x in lista[1:] if x < pivote]
+    iguales = [x for x in lista if x == pivote]
+    mayores = [x for x in lista[1:] if x > pivote]
+
+    return quick_sort(menores) + iguales + quick_sort(mayores)
+
+def mostrarRepartidores():
+    if repartidores:
+        print("\n= = = = = Registro Original = = = = =")
+        for clave, datos in repartidores.items():
+            print(f"Nombre: {clave} Paquetes Entregados: {datos['repartidos']} Zona: {datos['zona']}\n")
+        print("\n= = = = = Ranking = = = = =")
+        lista = list(repartidores.items())
+        ordenado = quick_sort(lista)
+        for clave2, datos2 in ordenado:
+            print(f"Nombre: {clave2} Paquetes Entregados: {datos2['repartidos']} Zona: {datos2['zona']}\n")
 def main():
     while True:
         try:
@@ -50,7 +71,7 @@ def main():
                 case 1:
                     ingreso()
                 case 2:
-                    print("2")
+                    mostrarRepartidores()
                 case 3:
                     print("3")
                 case 4:
