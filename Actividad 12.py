@@ -78,7 +78,39 @@ def buscarRepartidor():
         if b != -1:
             print(f"{buscar} entregó {repartidores[buscar]['repartidos']} paquetes")
         else:
-            print("No existe")
+            print("No existe ese repartidor")
+    else:
+        print("No hay repartidores registrados")
+
+def estadisticas():
+    if repartidores:
+        may = 0
+        b = 0
+        total = 0
+        min = 100
+        mayor = []
+        menor = []
+        print("\n= = = = = ESTADISTICAS = = = = =")
+        for datos in repartidores.values():
+            total = total + datos["repartidos"]
+        for clave, dato in repartidores.items():
+            if dato["repartidos"] > may:
+                may = dato["repartidos"]
+                mayor = (clave, dato["repartidos"])
+                if b == 0:
+                    min = dato["repartidos"]
+                    menor = (clave, dato["repartidos"])
+                    b = b + 1
+            elif dato["repartidos"] < min:
+                min = dato["repartidos"]
+                menor = (clave, dato["repartidos"])
+
+        promedio = total / len(repartidores)
+        print(f"El total de paquetes entregados es: {total}")
+        print(f"El promedio de entrega es de: {promedio}")
+        print(f"Mayor número de entregas: {mayor[0]} ({mayor[1]})")
+        if menor:
+            print(f"Menor número de entregas: {menor[0]} ({menor[1]})")
     else:
         print("No hay repartidores registrados")
 
@@ -95,9 +127,9 @@ def main():
                 case 3:
                     buscarRepartidor()
                 case 4:
-                    print("4")
+                    estadisticas()
                 case 5:
-                    print("5")
+                    print("Saliendo. . .")
                     break
                 case _:
                     print("Opcion invalida, reintente")
