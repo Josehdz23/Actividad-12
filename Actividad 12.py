@@ -44,13 +44,12 @@ def ingreso():
 def quick_sort(lista):
     if len(lista) <= 1:
         return lista
-
-    pivote = lista[0]
-    menores = [x for x in lista[1:] if x < pivote]
-    iguales = [x for x in lista if x == pivote]
-    mayores = [x for x in lista[1:] if x > pivote]
-
-    return quick_sort(menores) + iguales + quick_sort(mayores)
+    else:
+        pivote = lista[0]
+        menores = [x for x in lista[1:] if x[1]["repartidos"] < pivote[1]["repartidos"]]
+        iguales = [x for x in lista if x[1]["repartidos"] == pivote[1]["repartidos"]]
+        mayores = [x for x in lista[1:] if x[1]["repartidos"] > pivote[1]["repartidos"]]
+        return quick_sort(mayores) + iguales + quick_sort(menores)
 
 def mostrarRepartidores():
     if repartidores:
@@ -60,7 +59,8 @@ def mostrarRepartidores():
         print("\n= = = = = Ranking = = = = =")
         lista = list(repartidores.items())
         ordenado = quick_sort(lista)
-        for clave2, datos2 in ordenado:
+        ordenadoD = dict(ordenado)
+        for clave2, datos2 in ordenadoD.items():
             print(f"Nombre: {clave2} Paquetes Entregados: {datos2['repartidos']} Zona: {datos2['zona']}\n")
 def main():
     while True:
